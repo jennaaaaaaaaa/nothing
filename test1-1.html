@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>운동 세트</title>
+  </head>
+  <body>
+    <h1>운동 세트</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>세트</th>
+          <th>중량(kg)</th>
+          <th>횟수</th>
+          <th>총 중량</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><input type="number" id="weight"></td>
+          <td><input type="number" id="reps"></td>
+          <td><input type="number" id="totalWeight"></td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="addSet">세트 추가</button>
+    <button id="clear">초기화</button>
+    <script>
+      let setNumber = 1;
+      let weight = document.getElementById("weight");
+      let reps = document.getElementById("reps");
+      let totalWeight = document.getElementById("totalWeight");
+      let table = document.querySelector("table");
+      let tbody = table.querySelector("tbody");
+      let addSetButton = document.getElementById("addSet");
+      let clearButton = document.getElementById("clear");
+    
+      addSetButton.addEventListener("click", function() {
+        let newRow = document.createElement("tr");
+        newRow.innerHTML = `
+          <td>${setNumber}</td>
+          <td><input type="number" id="weight" value="${weight.value}"></td>
+          <td><input type="number" id="reps" value="${reps.value}"></td>
+          <td><input type="number" id="totalWeight" value="${weight.value * reps.value}" disabled></td>
+        `;
+        tbody.appendChild(newRow);
+        setNumber++;
+        calculateTotalWeight();
+      });
+    
+      clearButton.addEventListener("click", function() {
+        while (tbody.firstChild) {
+          tbody.removeChild(tbody.firstChild);
+        }
+        setNumber = 1;
+      });
+    
+      weight.addEventListener("keyup", calculateTotalWeight);
+      reps.addEventListener("keyup", calculateTotalWeight);
+    
+      function calculateTotalWeight() {
+        let total = 0;
+        for (let i = 0; i < tbody.rows.length; i++) {
+          let row = tbody.rows[i];
+          let weight = +row.cells[2].querySelector("input").value;
+          let reps = +row.cells[3].querySelector("input").value;
+          total += weight * reps;
+        }
+        totalWeight.value = total;
+      }
+    </script>
+  </body>
+</html>

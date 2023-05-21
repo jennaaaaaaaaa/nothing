@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My First Web Page</title>
+</head>
+
+<style>
+    #kg {
+        display: block;
+    }
+
+    #reps {
+        display: block;
+    }
+
+    #spanreps {
+        display: flex;
+    }
+
+    #total {
+        display: flex;
+    }
+
+    #button{
+        display: flex;
+    }
+    
+    #addRow {
+        margin-left: 10px;
+    }
+</style>
+
+
+<body>
+    <h1>My First Web Page</h1>
+    <p>This is my first web page.</p>
+    <img src="./images/myimage.png">
+
+    <div>
+
+        <p id="result"></p>
+
+        <table>
+            <th>set</th>
+            <th>kg</th>
+            <th>reps</th>
+            <th>subTotal</th>
+            <tr id="oneSet1";>
+                <td><button id="setNumber">1</button></td>
+                <td><input type="number" id="firstNumber"></td>
+                <td><input type="number" id="secondNumber"></td>
+                <td id="subTotal"></td>
+            </tr>
+        </table>
+        <div id="button"> 
+            <button id="deleteRow">Delete Row</button>
+            <button id="addRow">Add Row</button>
+        </div>
+        
+    </div>
+</body>
+
+<script>
+
+    function calculate() {
+        const firstNumber = document.getElementById("firstNumber").value;
+        const secondNumber = document.getElementById("secondNumber").value;
+        const subTotal = firstNumber * secondNumber;
+        const formattedResult = subTotal.toLocaleString("en-US", {
+            maximumFractionDigits: 0
+        });
+        document.getElementById("subTotal").innerHTML = formattedResult + "kg";
+    }
+
+    document.getElementById("firstNumber").addEventListener("keyup", calculate);
+    document.getElementById("secondNumber").addEventListener("keyup", calculate);
+
+    let setNumber = 1;
+    document.getElementById("addRow").addEventListener("click", function () {
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <td><button id="setNumber">${setNumber + 1}</button></td>
+            <td><input type="number" id="firstNumber"></td>
+            <td><input type="number" id="secondNumber"></td>
+            <td id="subTotal"></td>
+        `;
+        newRow.id = `oneSet${setNumber + 1}`;
+        document.querySelector("table").appendChild(newRow);
+        setNumber++;
+        calculate();
+    });
+    
+    document.getElementById("deleteRow").addEventListener("click", function() {
+        const table = document.querySelector("table");
+        const rows = table.querySelectorAll("tr");
+        rows[rows.length - 1].remove();
+        setNumber--;
+    });
+    
+</script>
+
+</html>

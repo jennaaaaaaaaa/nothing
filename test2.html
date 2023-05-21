@@ -17,10 +17,6 @@
     #spanreps {
         display: flex;
     }
-
-    #total {
-        display: flex;
-    }
 </style>
 
 
@@ -30,15 +26,11 @@
     <img src="./images/myimage.png">
 
     <div>
-
         <p id="result"></p>
-
         <table>
-            <th>set</th>
             <th>kg</th>
             <th>reps</th>
             <tr>
-                <td id="setNumber">1</td>
                 <td><input type="number" id="firstNumber"></td>
                 <td><input type="number" id="secondNumber"></td>
             </tr>
@@ -55,13 +47,12 @@
         const formattedResult = result.toLocaleString("en-US", {
             maximumFractionDigits: 0
         });
-        document.getElementById("result").innerHTML = "total: " + formattedResult + "kg";
+        document.getElementById("result").innerHTML = formattedResult;
     }
-
+    
     document.getElementById("firstNumber").addEventListener("keyup", calculate);
     document.getElementById("secondNumber").addEventListener("keyup", calculate);
 
-    for (i=1; i)
 
 </script>
 

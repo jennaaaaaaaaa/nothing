@@ -37,12 +37,13 @@
             <th>set</th>
             <th>kg</th>
             <th>reps</th>
-            <tr>
-                <td id="setNumber">1</td>
+            <tr id="oneSet">
+                <td><button id="setNumber">1</button></td>
                 <td><input type="number" id="firstNumber"></td>
                 <td><input type="number" id="secondNumber"></td>
             </tr>
         </table>
+        <button id="addRow">Add Row</button>
     </div>
 </body>
 
@@ -61,7 +62,16 @@
     document.getElementById("firstNumber").addEventListener("keyup", calculate);
     document.getElementById("secondNumber").addEventListener("keyup", calculate);
 
-    for (i=1; i)
+    document.getElementById("addRow").addEventListener("click", function () {
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <td><button id="setNumber">${setNumber + 1}</button></td>
+            <td><input type="number" id="firstNumber"></td>
+            <td><input type="number" id="secondNumber"></td>
+        `;
+        document.querySelector("table").appendChild(newRow);
+        setNumber++;
+    });
 
 </script>
 

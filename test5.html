@@ -21,6 +21,14 @@
     #total {
         display: flex;
     }
+
+    #button{
+        display: flex;
+    }
+    
+    #addRow {
+        margin-left: 10px;
+    }
 </style>
 
 
@@ -37,12 +45,17 @@
             <th>set</th>
             <th>kg</th>
             <th>reps</th>
-            <tr>
-                <td id="setNumber">1</td>
+            <tr id="oneSet">
+                <td><button id="setNumber">1</button></td>
                 <td><input type="number" id="firstNumber"></td>
                 <td><input type="number" id="secondNumber"></td>
             </tr>
         </table>
+        <div id="button">
+            <button id="deleteRow">Delete Row</button>
+            <button id="addRow">Add Row</button>
+        </div>
+        
     </div>
 </body>
 
@@ -61,8 +74,25 @@
     document.getElementById("firstNumber").addEventListener("keyup", calculate);
     document.getElementById("secondNumber").addEventListener("keyup", calculate);
 
-    for (i=1; i)
-
+    let setNumber = 1;
+    document.getElementById("addRow").addEventListener("click", function () {
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+            <td><button id="setNumber">${setNumber + 1}</button></td>
+            <td><input type="number" id="firstNumber"></td>
+            <td><input type="number" id="secondNumber"></td>
+        `;
+        document.querySelector("table").appendChild(newRow);
+        setNumber++;
+    });
+    
+    document.getElementById("deleteRow").addEventListener("click", function() {
+        const table = document.querySelector("table");
+        const rows = table.querySelectorAll("tr");
+        rows[rows.length - 1].remove();
+        setNumber--;
+    });
+    
 </script>
 
 </html>
